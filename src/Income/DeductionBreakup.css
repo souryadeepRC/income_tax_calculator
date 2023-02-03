@@ -1,0 +1,23 @@
+.deduction-breakup {
+    border: 2px solid #d5cfcf;
+    padding: 5px;
+    margin: 5px 0;
+}
+.deduction-breakup header {
+    font-size: 16px;
+}
+.deduction-breakup p{
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 0 5px;
+}
+@media screen and (max-width:780px) {
+    .deduction-breakup header {
+        font-size: 11px;
+    }
+    .deduction-info::before{
+        content: '*Scroll below to add or remove deduction';
+        color: blue;
+    }
+}

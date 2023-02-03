@@ -1,0 +1,19 @@
+ 
+.tax-breakup header{
+    font-size: 14px;
+}
+.tax-breakup p{ 
+    margin: 6px 0;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+@media screen and (max-width:780px) {
+    .tax-breakup header{
+        font-size: 12px;
+    }
+    .tax-breakup p{ 
+        margin: 4px 0;
+        font-size: 12px;
+    }
+}

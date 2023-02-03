@@ -1,0 +1,38 @@
+.btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+}
+.btn-container>button{
+    padding: 14px 5px;
+    width: 25%;
+    border: none;
+    font-weight: bold;
+    color: #064e12;
+    background: #b0eb9d;
+    cursor: pointer;
+}
+
+@media screen and (max-width:780px) {
+    .btn-container>button{ 
+        width: 50%;
+    }
+}
+.btn-container>button:hover{
+    background: #9dd38b;
+}
+.btn-add>button{
+    color: #064e12;
+    background: #b0eb9d;
+}
+.btn-add>button:hover{
+    background: #9dd38b;
+}
+.btn-remove>button{
+    color: #8b1717;
+    background: #edcece;
+}
+.btn-remove>button:hover{
+    background: #d5b6b6;
+}
