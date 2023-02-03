@@ -3,7 +3,7 @@ const calculateByNewTaxSlab = (taxableAmount) => {
 
     const TAX_SLAB_AMOUNT = 300000
     /* ------- The income tax rebate limit : 7 Lakh ----*/
-    if (taxableAmount < 700000) {
+    if (taxableAmount <= 700000) {
         return 0
     }
     /* -------  Up to Rs.3 lakh - 0% ------- 
@@ -39,7 +39,7 @@ const calculateByNewTaxSlab = (taxableAmount) => {
 const calculateByOldTaxSlab = (taxableAmount) => {
 
     /* ------- The income tax rebate limit : 5 Lakh ----*/
-    if (taxableAmount < 500000) {
+    if (taxableAmount <= 500000) {
         return 0;
     }
     /* --- Up to Rs.2.5Lakh  - 0% ---
@@ -79,15 +79,21 @@ const calculateIncomeTax = (taxableAmount, type) => {
 }
 
 const calculateTax = (taxableAmount, deductionDetail) => {
-    console.log(taxableAmount, deductionDetail);
+     
     let deductedAmount = 0
     for (const key in deductionDetail) {
         deductedAmount += deductionDetail[key]
     }
-    return {
+    let taxBreakup =  {
         newScheme: calculateIncomeTax(+taxableAmount, IS_NEW_SCHEME),
         oldScheme: calculateIncomeTax(taxableAmount - deductedAmount, !IS_NEW_SCHEME)
     }
+    const difference = (taxBreakup.newScheme.monthlyTax - taxBreakup.oldScheme.monthlyTax).toFixed(2)
+    taxBreakup['Difference'] = {
+        amount : difference < 0  ? difference * - 1 : difference,
+        type : difference < 0  ? 'New' : 'Old'
+    }
+    return taxBreakup
 }
 
 export { calculateTax }

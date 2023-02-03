@@ -14,23 +14,6 @@ header p {
 header>p:nth-child(2) {
     font-size: 12px;
 }
-
-footer {
-    /* position: fixed; */
-    width: 100%;
-    bottom: 0;
-    background: #b9b8b8;
-    color: black;
-    text-align: center;
-    font-size: 12px;
-    padding: 5px 0;
-    font-weight: bold;
-}
-
-a {
-    color: black;
-}
-
 @media screen and (max-width:780px) {
     header p {
         font-size: 14px;

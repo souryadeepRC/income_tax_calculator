@@ -1,5 +1,6 @@
 
 import React, { useRef, useState } from "react";
+import { validateEntry, calculateTotalDeduction } from './DeductionLogic'
 import Input from "../Generic/Input/Input"
 import AddRemoveDeduction from "./AddRemoveDeduction";
 
@@ -12,19 +13,15 @@ const DeductionByOther = (props) => {
     const homeLoanExtraDeduction = useRef();
     const ltaDeduction = useRef();
     const otherDeduction = useRef();
- 
 
-    const [isAdded, setIsAdded] = useState(false)
+    const isIncluded = props.amount > 0 ? true : false
     const [errorMsg, setErrorMsg] = useState('')
 
-    const checkValidity = (value) => !isNaN(value) && value.indexOf('e') < 0
-    const validateEntry = (details) => {
-        for (const key in details) {
-            if (!checkValidity(details[key])) {
-                return false;
-            }
-        }
-        return true;
+    const getMaxEntry = (value, limit) => {
+        if (value === '') return 0
+        const convertedValue = +value
+        if (limit === 0) return convertedValue
+        return convertedValue > limit ? limit : convertedValue
     }
     const convertEntry = (details) => {
         return {
@@ -37,22 +34,17 @@ const DeductionByOther = (props) => {
             other: getMaxEntry(details.other, 0),
         }
     }
-    const calculateTotalDeduction = (details) => {
-        let totalDeduction = 0
-        for (const key in details) {
-            totalDeduction += details[key]
-        }
-        return totalDeduction
+    const clearEntry = () => {
+        mediclaimSelfDeduction.current.value = ''
+        mediclaimParentDeduction.current.value = ''
+        npsDeduction.current.value = ''
+        homeLoanDeduction.current.value = ''
+        homeLoanExtraDeduction.current.value = ''
+        ltaDeduction.current.value = ''
+        otherDeduction.current.value = ''
     }
-
-    const getMaxEntry = (value, limit) => {
-        if (value === '') return 0
-        const convertedValue = +value
-        if (limit === 0) return convertedValue
-        return convertedValue > limit ? limit : convertedValue
-    }
-    const collectEntry = () => {
-        return {
+    const addDeduction = () => {
+        const deductionDetails = {
             mediclaimSelf: mediclaimSelfDeduction.current.value,
             mediclaimParent: mediclaimParentDeduction.current.value,
             nps: npsDeduction.current.value,
@@ -61,11 +53,7 @@ const DeductionByOther = (props) => {
             ltaDeduction: ltaDeduction.current.value,
             other: otherDeduction.current.value
         }
-    }
- 
-    const addDeduction = () => {
-        const deductionDetails = collectEntry()
-        if(validateEntry(deductionDetails)){
+        if (validateEntry(deductionDetails)) {
             const totalDeduction = calculateTotalDeduction(convertEntry(deductionDetails))
             if (totalDeduction === 0) {
                 setErrorMsg('Enter at least one')
@@ -73,23 +61,21 @@ const DeductionByOther = (props) => {
             if (totalDeduction > 0) {
                 setErrorMsg('')
                 props.onDeduction(totalDeduction)
-                setIsAdded(true)
+                clearEntry()
             }
-        }else{
+        } else {
             setErrorMsg('Enter Numeric values only')
         }
     }
 
     const removeDeduction = () => {
         props.onDeduction(0)
-        setIsAdded(false)
     }
     return (
         <div>
-            <header>{isAdded && <span>&#9989;</span>}
+            <header>{isIncluded && <span>&#9989;</span>}
                 DEDUCTION UNDER OTHER SECTION [YEARLY]</header>
             {errorMsg !== '' && <p className="error-msg">* {errorMsg}</p>}
-
 
             <Input label='Medical premium for Self / Spouse / Children' ref={mediclaimSelfDeduction} errorMsg='limit 25,000' /> {/*25,000 */}
             <Input label='Medical premium for Parent' ref={mediclaimParentDeduction} errorMsg='limit 50,000' />{/**50,000 */}
@@ -99,9 +85,8 @@ const DeductionByOther = (props) => {
             <Input label='Leave Travel Concession' ref={ltaDeduction} errorMsg='limit 36,000' /> {/*36,000 */}
             <Input label='OTHER DEDUCTIONS' ref={otherDeduction} /> {/*of Rs 2 lakh */}
 
+            <AddRemoveDeduction isAdded={isIncluded} onAdd={addDeduction} onRemove={removeDeduction} />
 
-            <AddRemoveDeduction isAdded={isAdded} onAdd={addDeduction} onRemove={removeDeduction} />
-             
         </div>
     )
 }

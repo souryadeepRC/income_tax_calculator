@@ -1,6 +1,6 @@
 import './ShowTaxBreakup.css'
 const ShowTaxBreakup = ({label,data}) => { 
-    console.log(data);
+    
     return (
         <div className='tax-breakup'>
             <header>{label}</header>
