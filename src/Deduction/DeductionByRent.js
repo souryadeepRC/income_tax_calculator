@@ -13,9 +13,8 @@ const DeductionByRent = (props) => {
   const rentCity = useRef();
   const rentDuration = useRef();
 
-    const basicAmount = useRef();
-    const hraAmount = useRef();
-    const rentAmount = useRef();
+  const [errorMsg, setErrorMsg] = useState('')
+  const isIncluded = props.amount > 0 ? true : false
 
   const calculateTotalDeduction = (details) => {
     const ruleByRent = details.rent - details.basic * 0.1;

@@ -71,6 +71,9 @@ const DeductionByOther = (props) => {
     const removeDeduction = () => {
         props.onDeduction(0)
     }
+    const loanValue = props.loanDetails && props.loanDetails.interestPaid>0 ? props.loanDetails.interestPaid : 0 ;
+    
+  const extraLoanValue = props.loanDetails && props.loanDetails.extraInterestPaid>0 ? props.loanDetails.extraInterestPaid : 0 ;
     return (
         <div>
             <header>{isIncluded && <span>&#9989;</span>}
@@ -80,8 +83,8 @@ const DeductionByOther = (props) => {
             <Input label='Medical premium for Self / Spouse / Children' ref={mediclaimSelfDeduction} errorMsg='limit 25,000' /> {/*25,000 */}
             <Input label='Medical premium for Parent' ref={mediclaimParentDeduction} errorMsg='limit 50,000' />{/**50,000 */}
             <Input label='NATIONAL PENSION SCHEME(80CCD(1B))' ref={npsDeduction} errorMsg='limit 50,000' />{/**50,000 */}
-            <Input label='HOME LOAN INTEREST (Section 24(b))' ref={homeLoanDeduction} errorMsg='limit 2,00,000' /> {/*of Rs 2 lakh */}
-            <Input label='HOME LOAN INTEREST (80EE/80EEA)' ref={homeLoanExtraDeduction} errorMsg='after 2lakh excemption limit 1,50,000' /> {/*up to Rs 1,50,000*/}
+            <Input label='HOME LOAN INTEREST (Section 24(b))' ref={homeLoanDeduction} errorMsg='limit 2,00,000' value={loanValue}/> {/*of Rs 2 lakh */}
+            <Input label='HOME LOAN INTEREST (80EE/80EEA)' ref={homeLoanExtraDeduction} errorMsg='after 2lakh excemption limit 1,50,000'  value={extraLoanValue}/> {/*up to Rs 1,50,000*/}
             <Input label='Leave Travel Concession' ref={ltaDeduction} errorMsg='limit 36,000' /> {/*36,000 */}
             <Input label='OTHER DEDUCTIONS' ref={otherDeduction} /> {/*of Rs 2 lakh */}
 

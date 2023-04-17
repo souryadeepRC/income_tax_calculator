@@ -26,7 +26,7 @@ const DeductionBy80C = (props) => {
         }
         return totalDeduction > MAX_80_C_LIMIT ? MAX_80_C_LIMIT : totalDeduction
     }  */
-
+ 
   const clearEntry = () => {
     pfAmount.current.value = "";
     licDeduction.current.value = "";
@@ -63,6 +63,8 @@ const DeductionBy80C = (props) => {
   const removeDeduction = () => {
     props.onDeduction(0);
   };
+ 
+  const loanValue = props.loanDetails && props.loanDetails.principalPaid>0 ? props.loanDetails.principalPaid : 0 ;
   return (
     <div>
       <header>
@@ -73,7 +75,7 @@ const DeductionBy80C = (props) => {
       {errorMsg !== "" && <p className="error-msg">* {errorMsg}</p>}
       <Input label="Provident Fund" ref={pfAmount} errorMsg="" />
       <Input label="LIC" ref={licDeduction} />
-      <Input label="Home Loan Principal Repay" ref={loanDeduction} />
+      <Input label="Home Loan Principal Repay" ref={loanDeduction} value={loanValue}/>
       <Input
         label="Fxed Deposit / NSC / VPF / PPF / Other"
         ref={otherDeduction}
