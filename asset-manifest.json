@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/income_tax_calculator/static/css/main.39c084e0.css",
-    "main.js": "/income_tax_calculator/static/js/main.1c4ece99.js",
+    "main.js": "/income_tax_calculator/static/js/main.dc237399.js",
     "index.html": "/income_tax_calculator/index.html",
     "main.39c084e0.css.map": "/income_tax_calculator/static/css/main.39c084e0.css.map",
-    "main.1c4ece99.js.map": "/income_tax_calculator/static/js/main.1c4ece99.js.map"
+    "main.dc237399.js.map": "/income_tax_calculator/static/js/main.dc237399.js.map"
   },
   "entrypoints": [
     "static/css/main.39c084e0.css",
-    "static/js/main.1c4ece99.js"
+    "static/js/main.dc237399.js"
   ]
 }
