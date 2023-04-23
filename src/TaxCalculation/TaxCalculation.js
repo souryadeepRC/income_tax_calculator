@@ -84,8 +84,9 @@ const calculateTax = (taxableAmount, deductionDetail) => {
     for (const key in deductionDetail) {
         deductedAmount += deductionDetail[key]
     }
+    const newSchemeTaxableIncome = +taxableAmount - deductionDetail['Standard Deduction']
     let taxBreakup =  {
-        newScheme: calculateIncomeTax(+taxableAmount, IS_NEW_SCHEME),
+        newScheme: calculateIncomeTax(newSchemeTaxableIncome, IS_NEW_SCHEME),
         oldScheme: calculateIncomeTax(taxableAmount - deductedAmount, !IS_NEW_SCHEME)
     }
     const difference = (taxBreakup.newScheme.monthlyTax - taxBreakup.oldScheme.monthlyTax).toFixed(2)
